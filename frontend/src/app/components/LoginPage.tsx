@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { AlertCircle, Truck, Mail, Lock, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import { ThemeToggle } from './ui/ThemeToggle';
 
 const loginSchema = z.object({
   email: z.string().email('Введите корректный email'),
@@ -40,64 +41,68 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex relative overflow-hidden">
+    <div className="min-h-screen flex relative overflow-hidden bg-background">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
+          animate={{ scale: [1, 1.15, 1], rotate: [0, 45, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full blur-3xl"
+          className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-primary/[0.03] rounded-full blur-3xl"
         />
         <motion.div
-          animate={{ scale: [1.2, 1, 1.2], rotate: [90, 0, 90] }}
+          animate={{ scale: [1.15, 1, 1.15], rotate: [45, 0, 45] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-          className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-accent/5 rounded-full blur-3xl"
+          className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-accent/[0.03] rounded-full blur-3xl"
         />
       </div>
 
-      {/* Left panel - branding */}
+      {/* Left panel — branding */}
       <motion.div
-        initial={{ x: -100, opacity: 0 }}
+        initial={{ x: -60, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#0f172a] p-12 flex-col justify-between relative overflow-hidden"
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="hidden lg:flex lg:w-1/2 bg-sidebar relative overflow-hidden flex-col justify-between p-12"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_40%,transparent_100%)]" />
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
 
         <div className="relative z-10">
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="flex items-center gap-4 mb-8"
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="flex items-center gap-3 mb-10"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-accent/50 rounded-2xl blur-xl" />
-              <div className="relative w-16 h-16 bg-gradient-to-br from-accent to-accent/80 rounded-2xl flex items-center justify-center shadow-2xl">
-                <Truck className="w-9 h-9 text-white" />
-              </div>
+            <div className="w-12 h-12 rounded-lg bg-sidebar-primary flex items-center justify-center">
+              <Truck className="w-6 h-6 text-sidebar-primary-foreground" strokeWidth={1.5} />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white tracking-tight">SAMARA BRIG</h1>
-              <p className="text-blue-200 text-sm">Диспетчерская система управления</p>
+              <h1 className="text-2xl font-bold text-sidebar-foreground tracking-tight">Самарские Бригады</h1>
+              <p className="text-xs text-sidebar-foreground/50 font-medium tracking-wide uppercase mt-0.5">Аварийно-ремонтная служба</p>
             </div>
           </motion.div>
         </div>
 
-        <div className="relative z-10 space-y-8">
+        <div className="relative z-10 space-y-6">
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
           >
-            <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
-              Умное управление<br />
-              <span className="bg-gradient-to-r from-accent to-yellow-300 bg-clip-text text-transparent">
-                аварийными бригадами
-              </span>
+            <h2 className="text-4xl font-bold text-sidebar-foreground mb-4 leading-tight tracking-tight">
+              Умное управление
+              <br />
+              <span className="text-sidebar-primary">аварийными бригадами</span>
             </h2>
-            <p className="text-blue-100 text-lg leading-relaxed">
-              Автоматизированное планирование маршрутов, оптимизация загрузки и контроль выполнения заявок
+            <p className="text-sidebar-foreground/60 text-base leading-relaxed max-w-md">
+              Автоматизированное планирование маршрутов, оптимизация загрузки и контроль выполнения заявок в режиме реального времени
             </p>
           </motion.div>
         </div>
@@ -105,122 +110,135 @@ export function LoginPage() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="relative z-10"
+          transition={{ delay: 0.7, duration: 0.5 }}
+          className="relative z-10 flex items-center justify-between"
         >
-          <p className="text-blue-200 text-sm">© 2026 SAMARA BRIG. Аварийно-ремонтная служба</p>
+          <p className="text-xs text-sidebar-foreground/40">© 2026 АРС Диспетчер</p>
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="text-sidebar-foreground/40 hover:text-sidebar-foreground hover:bg-sidebar-accent" />
+          </div>
         </motion.div>
       </motion.div>
 
-      {/* Right panel - login form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-background relative">
+      {/* Right panel — login form */}
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative">
         <motion.div
-          initial={{ x: 100, opacity: 0 }}
+          initial={{ x: 40, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="w-full max-w-md"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-[400px]"
         >
-          <div className="lg:hidden mb-10 text-center">
-            <div className="inline-flex items-center gap-3 mb-4">
-              <div className="relative w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-                <Truck className="w-8 h-8 text-white" />
+          {/* Mobile logo */}
+          <div className="lg:hidden mb-8 text-center">
+            <div className="inline-flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                <Truck className="w-5 h-5 text-primary-foreground" strokeWidth={1.5} />
               </div>
               <div className="text-left">
-                <h1 className="text-3xl font-bold text-foreground">SAMARA BRIG</h1>
-                <p className="text-muted-foreground text-sm">Диспетчерская система</p>
+                <h1 className="text-xl font-bold text-foreground tracking-tight">Самарские Бригады</h1>
+                <p className="text-muted-foreground text-xs">Диспетчерская система</p>
               </div>
             </div>
           </div>
 
-          <div className="mb-10">
-            <h2 className="text-4xl font-bold text-foreground mb-3">С возвращением!</h2>
-            <p className="text-muted-foreground text-lg">
-              Введите учетные данные для продолжения работы
-            </p>
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-2 tracking-tight">С возвращением</h2>
+            <p className="text-muted-foreground text-sm">Введите учетные данные для продолжения работы</p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {error && (
               <motion.div
-                initial={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-r from-destructive/10 to-destructive/5 border border-destructive/30 rounded-xl p-4 flex items-start gap-3"
+                className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 flex items-start gap-2.5"
               >
-                <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div className="text-sm text-destructive font-medium">{error}</div>
               </motion.div>
             )}
 
-            <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-semibold text-foreground">
-                Email адрес
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-[11px] font-semibold text-foreground uppercase tracking-wider">
+                Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-muted-foreground/50" strokeWidth={1.5} />
                 <input
                   id="email"
                   type="email"
                   {...register('email')}
                   placeholder="dispatcher@samara-brig.ru"
-                  className="w-full pl-12 pr-4 py-4 bg-card border-2 border-border rounded-xl focus:outline-none focus:border-primary transition-all"
+                  className="w-full pl-10 pr-4 py-3 bg-input-background border border-border rounded-lg
+                             text-sm text-foreground placeholder:text-muted-foreground/40
+                             focus:outline-none focus:ring-1 focus:ring-ring focus:border-ring
+                             transition-all duration-150"
                 />
               </div>
               {errors.email && (
-                <p className="text-sm text-destructive">{errors.email.message}</p>
+                <p className="text-xs text-destructive font-medium">{errors.email.message}</p>
               )}
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-semibold text-foreground">
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="text-[11px] font-semibold text-foreground uppercase tracking-wider">
                 Пароль
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-muted-foreground/50" strokeWidth={1.5} />
                 <input
                   id="password"
                   type="password"
                   {...register('password')}
-                  placeholder="••••••••••"
-                  className="w-full pl-12 pr-4 py-4 bg-card border-2 border-border rounded-xl focus:outline-none focus:border-primary transition-all"
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-4 py-3 bg-input-background border border-border rounded-lg
+                             text-sm text-foreground placeholder:text-muted-foreground/40
+                             focus:outline-none focus:ring-1 focus:ring-ring focus:border-ring
+                             transition-all duration-150"
                 />
               </div>
               {errors.password && (
-                <p className="text-sm text-destructive">{errors.password.message}</p>
+                <p className="text-xs text-destructive font-medium">{errors.password.message}</p>
               )}
             </div>
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 rounded-xl font-semibold transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold
+                         text-sm tracking-wide
+                         hover:bg-primary/90 active:bg-primary/95
+                         disabled:opacity-50 disabled:cursor-not-allowed
+                         transition-all duration-150
+                         flex items-center justify-center gap-2 shadow-sm"
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">
                   <motion.span
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                    className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                    transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                    className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full"
                   />
-                  Вход в систему...
+                  Вход...
                 </span>
               ) : (
                 <>
                   Войти в систему
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
                 </>
               )}
             </button>
 
-            <div className="pt-6 border-t border-border">
-              <div className="bg-muted/50 rounded-xl p-4 text-center">
-                <p className="text-xs text-muted-foreground mb-2 font-medium">
-                  Демо доступ для тестирования:
+            <div className="pt-4 border-t border-border">
+              <div className="bg-muted rounded-lg p-3 text-center">
+                <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider mb-2">
+                  Демо доступ
                 </p>
                 <div className="flex flex-col gap-1">
-                  <code className="text-xs bg-background px-3 py-2 rounded-lg font-mono border">
+                  <code className="text-xs bg-background px-3 py-1.5 rounded-md font-mono border text-foreground">
                     demo@samara-brig.ru
                   </code>
-                  <code className="text-xs bg-background px-3 py-2 rounded-lg font-mono border">
+                  <code className="text-xs bg-background px-3 py-1.5 rounded-md font-mono border text-foreground">
                     demo123
                   </code>
                 </div>
