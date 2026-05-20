@@ -1,0 +1,27 @@
+{
+  "name": "ars-dispatcher-backend",
+  "version": "1.0.0",
+  "description": "Backend for ARS Dispatcher - Field Service Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "fastify",
+    "jwt",
+    "postgres",
+    "dispatcher"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^10.0.0",
+    "@fastify/jwt": "^9.0.0",
+    "axios": "^1.16.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.0",
+    "fastify": "^5.0.0",
+    "pg": "^8.13.0"
+  }
+}
